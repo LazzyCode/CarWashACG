@@ -41,45 +41,51 @@
             </a>
         </center>
        <h1>Registro</h1>
+	  
        <div class="form-group ">
-         <input type="text" class="form-control" placeholder="Usuario" id="user">
-         <i class="fa fa-user"></i>
-       </div>
-       <div class="form-group ">
-         <input type="text" class="form-control" placeholder="Nombre" id="Nombre">
-         <i class="fa fa-user"></i>
-       </div>
-        <div class="form-group ">
-         <input type="text" class="form-control" placeholder="Apellido" id="Apellido">
-         <i class="fa fa-user"></i>
-       </div>
-       <div class="form-group log-status">
-         <input type="password" class="form-control" placeholder="Contraseña" id="Passwod">
-         <i class="fa fa-lock"></i>
-       </div>
-       <div class="form-group log-status">
-         <input type="password" class="form-control" placeholder="Confirmar Contraseña" id="Passwod2">
-         <i class="fa fa-lock"></i>
-       </div>
-        <div class="form-group ">
-         <input type="text" class="form-control" placeholder="Colonia" id="Colonia">
-         <i class="fa fa-user"></i>
-       </div>
-        <div class="form-group ">
-         <input type="text" class="form-control" placeholder="Calle y Numero" id="CalleNumero">
-         <i class="fa fa-user"></i>
-       </div>
-       <div class="form-group ">
-         <input type="text" class="form-control" placeholder="Telefono Celular" id="Number">
-         <i class="fa fa-user"></i>
-       </div>
-        <span class="alert">Datos Invalidos</span>
+		   
+	<form action="receptorRegistro.php" method="post" accept-charset="utf-8">
+		
+			 <input type="text" class="form-control" placeholder="Usuario" id="usuario" name="user">
+			 <i class="fa fa-user"></i>
+		   </div>
+		   <div class="form-group ">
+			 <input type="text" class="form-control" placeholder="Nombre" id="Nombre" name="name">
+			 <i class="fa fa-user"></i>
+		   </div>
+			<div class="form-group ">
+			 <input type="text" class="form-control" placeholder="Apellido" id="Apellido" name="lastName">
+			 <i class="fa fa-user"></i>
+		   </div>
+		   <div class="form-group log-status">
+			 <input type="password" class="form-control" placeholder="Contraseña" id="Password" name="pass">
+			 <i class="fa fa-lock"></i>
+		   </div>
+		   
+		     <div class="form-group log-status">
+			 <input type="password" class="form-control" placeholder="Confirmar Contraseña" id="Passwod2" name="pass">
+			 <i class="fa fa-lock"></i>
+		  
+		   </div>
+			<div class="form-group ">
+			 <input type="text" class="form-control" placeholder="Colonia" id="Colonia" name="Colony">
+			 <i class="fa fa-user"></i>
+		   </div>
+			<div class="form-group ">
+			 <input type="text" class="form-control" placeholder="Calle y Numero" id="CalleNumero" name="calleYnumero">
+			 <i class="fa fa-user"></i>
+		   </div>
+		   <div class="form-group ">
+			 <input type="text" class="form-control" placeholder="Telefono Celular" id="Number" name="telefono">
+			 <i class="fa fa-user"></i>
+		   </div>
+			<!--<span class="alert">Datos Invalidos</span>
+		   -->
+		   <button type="submit" class="log-btn" >Registrar</button>
 
-       <button type="button" class="log-btn" >Registrar</button>
-       
-         <a class="link" href="inicio.html">¿Ya estas registrado?</a>
-     </div>
-
+			 <a class="link" href="inicio.html">¿Ya estas registrado?</a>
+		 </div>
+	 </form>
 </section>
 
 
