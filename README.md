@@ -9,6 +9,6 @@ Desarrollo de una pagina web para ofrecer un labado de carros a domicilio en la 
 
 Grupo de trabajo:
 
-  Vazquez Icedo Adrian Emilio
-  Gilberto Espinoza Maciel
+  Vazquez Icedo Adrian Emilio,
+  Gilberto Espinoza Maciel,
   Paredes Padilla Jorge Xavier
