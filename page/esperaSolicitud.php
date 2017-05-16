@@ -13,7 +13,7 @@
 <html lang="en">
 
 <head>
-	<meta http-equiv="Refresh" content="5; url=http://localhost/cwacg/paginaUsuario.php">
+	<meta http-equiv="Refresh" content="5; url=http://localhost/page/paginaUsuario.php">
     <meta charset="utf-8">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

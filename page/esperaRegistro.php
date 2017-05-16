@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<meta http-equiv="Refresh" content="3; url=http://localhost/cwacg/index.php">
+	<meta http-equiv="Refresh" content="3; url=http://localhost/page/index.php">
     <meta charset="utf-8">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
