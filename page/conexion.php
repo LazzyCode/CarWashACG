@@ -1,18 +1,22 @@
-<!DOCTYPE html>
-<html>
-<body>
 <?php
-	$servername = "localhost";
-	$dbname = "cwm";
-	$username = "root";
-	$password = "";
 
-	// Crear conexion
-	$conn = new mysqli($servername, $username, $password, $dbname);
-	// Checar conexion
-	if ($conn->connect_error) {
-	    die("Connection failed: " . $conn->connect_error);
+	function conectar(){
+		$servername = "localhost";
+		$dbname = "cwm";
+		$username = "root";
+		$password = "";
+
+		// Crear conexion
+		global $conex;
+		$conex = new mysqli($servername, $username, $password, $dbname);
+		// Checar conexion
+		if ($conex->connect_error) {
+		    die("Connection failed: " . $conex->connect_error);
+		}
 	}
+
+	function desconectar(){
+		mysqli_close($conex);
+	}
+
 ?>
-</body>
-</html>
