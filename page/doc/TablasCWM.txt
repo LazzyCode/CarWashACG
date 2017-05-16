@@ -1,0 +1,52 @@
+
+//Tabla de usuarios
+
+create table usuarios(
+	id int NOT NULL AUTO_INCREMENT,
+  	user varchar(50) NOT NULL,
+  	pass varchar(50) NOT NULL,
+  	fecha TIMESTAMP,
+  	PRIMARY KEY (id)
+)
+
+//Tabla info de usuarios
+
+create table infousuarios( 
+	id int NOT NULL AUTO_INCREMENT,
+	nombre varchar(50) NOT NULL,
+	apellido varchar(50) NOT NULL,
+	colonia varchar(50) NOT NULL,
+	calleYnumero varchar(50) NOT NULL,
+	tel bigint(20) NOT NULL, PRIMARY KEY (id),
+	FOREIGN KEY (id) REFERENCES usuarios(id)
+)
+
+//Tabla solicitudes
+
+create table solicitudes(
+    numeroSolicitud int NOT NULL AUTO_INCREMENT,
+    idUsuario int NOT NULL,
+    nombre varchar(50),
+    apellido varchar(50),
+    colonia varchar(50),
+    calleYnumero varchar(50),
+    tel bigint(20),
+    costo int NOT NULL,
+    fecha TIMESTAMP,
+    ordenStatus varchar(20),
+    PRIMARY KEY (numeroSolicitud),
+    FOREIGN KEY (idUsuario) REFERENCES infousuarios(id)
+);
+
+//Tabla trabajadores
+create table trabajadores(
+    numeroEmpleado int NOT NULL AUTO_INCREMENT,
+    user varchar(50),
+    pass varchar(50),
+    puesto int NOT NULL,
+    nombre varchar(20),
+    apellido varchar(20),
+    telefono bigint(20),
+    fecha TIMESTAMP,
+    PRIMARY KEY (numeroEmpleado)
+ );
