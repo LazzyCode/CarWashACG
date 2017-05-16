@@ -40,7 +40,7 @@
                 <img src="img/cwacg.jpg" class="img-rounded" width="100" height="90">
             </a>
         </center>
-       <h1>Solicitud</h1>
+       <h1>Registro</h1>
 	  
        <div class="form-group ">
 		   
@@ -51,11 +51,9 @@
 		   </div>
 		   <div class="form-group ">
 			 <input type="text" class="form-control" placeholder="Nombre" id="Nombre" name="name">
-			 <i class="fa fa-user"></i>
 		   </div>
 			<div class="form-group ">
 			 <input type="text" class="form-control" placeholder="Apellido" id="Apellido" name="lastName">
-			 <i class="fa fa-user"></i>
 		   </div>
 		   <div class="form-group">
 			 <input type="password" class="form-control" placeholder="Contraseña" id="Password" name="pass">
@@ -69,15 +67,12 @@
 		   </div>
 			<div class="form-group ">
 			 <input type="text" class="form-control" placeholder="Colonia" id="Colonia" name="Colony">
-			 <i class="fa fa-user"></i>
 		   </div>
 			<div class="form-group ">
 			 <input type="text" class="form-control" placeholder="Calle y Numero" id="CalleNumero" name="calleYnumero">
-			 <i class="fa fa-user"></i>
 		   </div>
 		   <div class="form-group ">
 			 <input type="text" class="form-control" placeholder="Telefono Celular" id="Number" name="telefono">
-			 <i class="fa fa-user"></i>
 		   </div>
 		   <button type="submit" class="log-btn" >Registrar</button>
 

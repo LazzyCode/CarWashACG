@@ -77,7 +77,7 @@
                         <img src="img/usuario.png" class="img-responsive" width="50" height="40">
                     </li>
                     <li>
-                        <a class="page-scroll" >Usuario: <?php echo $_SESSION['nombre'], " ", $_SESSION['apellido']?> </a>
+                        <a class="page-scroll" > <?php echo $_SESSION['nombre'], " ", $_SESSION['apellido']?> </a>
                     </li>
                     <li>    
                         <a class="page-scroll" href="desconectarUsuario.php">Salir</a>
@@ -211,7 +211,7 @@
         </div>
     </section>
 
-    
+
     <footer>
         <div class="container">
             <div class="row">

@@ -61,20 +61,27 @@
 			</div>
 			<div class="form-group ">
 				<input type="text" class="form-control" placeholder="Apellido" id="Apellido" name="lastName" value="<?php echo $_SESSION['apellido'] ?>">
-				<i class="fa fa-user"></i>
 			</div>
 			<div class="form-group ">
 				<input type="text" class="form-control" placeholder="Colonia" id="Colonia" name="Colony" value="<?php echo $_SESSION['colonia'] ?>">
-				<i class="fa fa-user"></i>
 			</div>
 			<div class="form-group ">
 				<input type="text" class="form-control" placeholder="Calle y Numero" id="CalleNumero" name="calleYnumero" value="<?php echo $_SESSION['calleYnumero'] ?>">
-				<i class="fa fa-user"></i>
 			</div>
 			<div class="form-group ">
 				<input type="text" class="form-control" placeholder="Telefono Celular" id="Number" name="telefono" value="<?php echo $_SESSION['telefono'] ?>">
-				<i class="fa fa-user"></i>
 			</div>
+			<!-- Variable tipo -time -->
+			<div class="form-group ">
+				<input type="time" class="form-control" placeholder="Hora" id="hora" name="hora" value="12:00">
+				<i class="fa fa-clock-o"></i>
+			</div>
+
+			<!-- Fecha-->
+			<div class="form-group ">
+				<input type="date" class="form-control" placeholder="Fecha" id="fecha" name="fecha">
+			</div>
+
 			<div class="form-group log-status">
 				<input type="password" class="form-control" placeholder="Confirmar Contraseña" id="Passwod2" name="pass">
 				<i class="fa fa-lock"></i>
