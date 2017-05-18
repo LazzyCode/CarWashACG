@@ -31,9 +31,11 @@ create table solicitudes(
     colonia varchar(50),
     calleYnumero varchar(50),
     tel bigint(20),
+    cantidadServicio int NOT NULL,
     costo int NOT NULL,
-    fecha TIMESTAMP,
+    fechaRequerida TIMESTAMP,
     ordenStatus varchar(20),
+    fechaOrden TIMESTAMP,	
     PRIMARY KEY (numeroSolicitud),
     FOREIGN KEY (idUsuario) REFERENCES infousuarios(id)
 );
