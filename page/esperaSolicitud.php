@@ -13,7 +13,7 @@
 <html lang="en">
 
 <head>
-	<meta http-equiv="Refresh" content="5; url=http://localhost/page/paginaUsuario.php">
+	<meta http-equiv="Refresh" content="3; url=http://localhost/page/paginaUsuario.php">
     <meta charset="utf-8">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,7 +51,7 @@
             <img src="img/cwacg.jpg" class="img-rounded" width="100" height="90">
         </center>
         <h1>Solicitud completada con exito.</h1>
-        <p>En 5 segundo sera redirigido.</p>	  
+        <p>En 3 segundo sera redirigido.</p>	  
 	</div>	 
 </section>
 

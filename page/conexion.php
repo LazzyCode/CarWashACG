@@ -1,5 +1,4 @@
 <?php
-
 	function conectar(){
 		$servername = "localhost";
 		$dbname = "cwm";
@@ -7,15 +6,15 @@
 		$password = "";
 
 		// Crear conexion
-		global $conex;
 		$conex = new mysqli($servername, $username, $password, $dbname);
 		// Checar conexion
 		if ($conex->connect_error) {
 		    die("Connection failed: " . $conex->connect_error);
 		}
+		return $conex;
 	}
 
-	function desconectar(){
+	function desconectar($conex){
 		mysqli_close($conex);
 	}
 

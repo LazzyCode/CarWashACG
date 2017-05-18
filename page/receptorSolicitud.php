@@ -12,28 +12,31 @@
 	}
 	if($_SESSION['pass_usuario']==$_POST['pass']){
 
-		conectar();
+		$conex=conectar();
 
 		$id=$_SESSION['id_usuario'];
-		$consulta = "SELECT * FROM infousuarios WHERE id='$id'";
-		//$tildes = $conex->query("SET NAMES 'utf8"); 
-		$resultado= mysqli_query($conex,$consulta);
-		$row = mysqli_fetch_array($resultado);
 
+        $hora=$_POST['hora'];
+        $fecha=$_POST['fecha'];
 		$nombre=$_POST['name'];
 		$apellido=$_POST['lastName'];
 		$colonia=$_POST['Colony'];
 		$calleYnumero=$_POST['calleYnumero'];
 		$telefono=$_POST['telefono'];
+		$cantidad=$_POST['cantidad'];
+        $costo=$cantidad*80;
 
-		$sql = "INSERT INTO solicitudes (idUsuario, nombre, apellido, colonia, calleYnumero, tel, costo, ordenStatus) VALUES ('$id', '$nombre', '$apellido', '$colonia', '$calleYnumero', '$telefono', 80, 'Espera')";
+        list($h, $m) = explode(":",$hora);
+  		$s='00';
+        list($anio, $mes, $dia) = explode("-",$fecha);
+        $fechaCompleta=$anio."-".$mes."-".$dia." ".$h.":".$m.":".$s;
+
+		$sql = "INSERT INTO solicitudes (idUsuario, nombre, apellido, colonia, calleYnumero, tel, cantidadServicio, costo,  fechaRequerida, ordenStatus) VALUES ('$id',          '$nombre', '$apellido', '$colonia', '$calleYnumero', '$telefono', $cantidad, $costo, '$fechaCompleta', 'Espera')";
 		$conex->query($sql);
-
-		$conex->close();
 
 		header("Location: esperaSolicitud.php");  
 
-		desconectar();
+		desconectar($conex);
 
 	}else{
 

@@ -78,7 +78,6 @@ public class Conector {
     public void actualizar(String text, String tabla, String numSol){
         try{
             sentencia = con.createStatement();
-            System.out.println("UPDATE "+tabla+" SET ordenStatus='"+text+"' WHERE numeroSolicitud='"+numSol+"'");
             PreparedStatement pps=con.prepareStatement("UPDATE "+tabla+" SET ordenStatus='"+text+"' WHERE numeroSolicitud='"+numSol+"'");
             pps.executeUpdate();
         }catch(Exception e){    

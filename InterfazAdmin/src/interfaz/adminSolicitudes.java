@@ -15,7 +15,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.IOException;
 /**
  *
  * @author emilio
@@ -43,45 +54,39 @@ public class adminSolicitudes extends javax.swing.JFrame {
     public void mostrarTabla(){
         
         DefaultTableModel m = new DefaultTableModel();
+        m.addColumn("Numero solicitud");
+        m.addColumn("idUsuario");
         m.addColumn("Nombre");
         m.addColumn("Apellido");
         m.addColumn("Colonia");
         m.addColumn("Calle y numero");
         m.addColumn("Telefono");
-        m.addColumn("Numero solicitud");
+        m.addColumn("Cantidad servicio");
         m.addColumn("Costo");
-        m.addColumn("Fecha solicitud");
+        m.addColumn("Fecha requerida");
         m.addColumn("Orden status");
+        m.addColumn("Fecha realizada");
         tabla.setModel(m);
         
-        String sql = "SELECT infousuarios.nombre,"
-                   + "infousuarios.apellido,"
-                   + "infousuarios.colonia,"
-                   + "infousuarios.calleYnumero,"
-                   + "infousuarios.tel,"
-                   + "solicitudes.numeroSolicitud,"
-                   + "solicitudes.costo,"
-                   + "solicitudes.fecha,"
-                   + "solicitudes.ordenStatus"
-                   + " FROM solicitudes"
-                   + " INNER JOIN infousuarios ON "
-                   + " solicitudes.idUsuario=infousuarios.id"
-                   + " AND solicitudes.ordenStatus='espera'";
+        String sql = "SELECT * FROM solicitudes WHERE ordenStatus='Espera' ORDER BY fechaRequerida ASC";
         
-        String datos[]=new String[9];
+        String datos[]=new String[12];
         try{
             Conector.sentencia=Conector.con.createStatement();
             ResultSet r=Conector.sentencia.executeQuery(sql);
             while(r.next()){
-                datos[0]=r.getString("nombre");
-                datos[1]=r.getString("apellido");
-                datos[2]=r.getString("colonia");
-                datos[3]=r.getString("calleYnumero");
-                datos[4]=r.getString("tel");
-                datos[5]=r.getString("numeroSolicitud");
-                datos[6]=r.getString("costo");
-                datos[7]=r.getString("fecha");
-                datos[8]=r.getString("ordenStatus");
+                datos[0]=r.getString("numeroSolicitud");
+                datos[1]=r.getString("idUsuario");
+                datos[2]=r.getString("Nombre");
+                datos[3]=r.getString("Apellido");
+                datos[4]=r.getString("colonia");
+                datos[5]=r.getString("calleYnumero");
+                datos[6]=r.getString("tel");
+                datos[7]=r.getString("cantidadServicio");
+                datos[8]=r.getString("costo");
+                datos[9]=r.getString("fechaRequerida");
+                datos[10]=r.getString("ordenStatus");
+                datos[11]=r.getString("fechaOrden");
                 m.addRow(datos);
             }
             tabla.setModel(m);
@@ -105,6 +110,7 @@ public class adminSolicitudes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         jEliminar = new javax.swing.JButton();
+        Imprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de administración de solicitudes de clientes.");
@@ -171,6 +177,13 @@ public class adminSolicitudes extends javax.swing.JFrame {
             }
         });
 
+        Imprimir.setText("Imprimir");
+        Imprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImprimirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -179,6 +192,8 @@ public class adminSolicitudes extends javax.swing.JFrame {
                 .addGap(54, 54, 54)
                 .addComponent(jActualiza)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Imprimir)
+                .addGap(18, 18, 18)
                 .addComponent(jEliminar)
                 .addGap(168, 168, 168)
                 .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -193,7 +208,8 @@ public class adminSolicitudes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jActualiza)
                     .addComponent(jEliminar)
-                    .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Imprimir))
                 .addGap(30, 30, 30))
         );
 
@@ -222,7 +238,7 @@ public class adminSolicitudes extends javax.swing.JFrame {
                                     new Object[] { "Completada", "Cancelada", "Nada"},
                                     "Administrador de empleados");
 
-            if(opcion!=2){
+            if(opcion==0 && opcion==1){
                 if(opcion==0){
                     opcion=JOptionPane.showOptionDialog(null, 
                         "Seguro que desea realiazar esta operacion?", 
@@ -249,8 +265,96 @@ public class adminSolicitudes extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jEliminarActionPerformed
 
+    private void ImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprimirActionPerformed
+      Document document = new Document();
+      int fila=tabla.getSelectedRow();
+      String numID=tabla.getValueAt(fila, 0).toString();
+      int id=Integer.parseInt(numID);
+    try {
+               String titulo="Recibo"+String.valueOf(id)+".pdf";
+      PdfWriter.getInstance(document, new FileOutputStream(titulo));
+      document.open();
+      String sql = "SELECT *"
+                   + " FROM solicitudes WHERE numeroSolicitud="+id;
+      PdfPTable table = new PdfPTable(3);  
+      
+       pdf.addImagen(document);
+       table.addCell(" ");        
+       PdfPCell celdaTitulo = new PdfPCell(new Paragraph("Recibo CW-ACG"));
+       table.addCell(celdaTitulo);
+       table.addCell(" ");
+        
+        try{
+            Conector.sentencia=Conector.con.createStatement();
+            ResultSet r=Conector.sentencia.executeQuery(sql);
+            while(r.next()){
+                PdfPCell vacio = new PdfPCell(new Paragraph(" "));
+                
+                PdfPCell solicitud = new PdfPCell(new Paragraph("Id pedido: "+r.getString("numeroSolicitud")));
+                table.addCell(solicitud);
+                
+                vacio.setColspan(2);
+                table.addCell(vacio);
+                vacio.setColspan(3);
+                
+                PdfPCell celdaId = new PdfPCell(new Paragraph("NumUsuario: "+r.getString("idUsuario")));
+                table.addCell(celdaId);
+                
+                
+                PdfPCell celdaNombre = new PdfPCell(new Paragraph("Cliente: "+r.getString("nombre")+" "+r.getString("apellido")));
+                celdaNombre.setColspan(2);
+                table.addCell(celdaNombre);
+                         
+                table.addCell(vacio);
+                
+                table.addCell("NumUsuario:");
+                PdfPCell colonia = new PdfPCell(new Paragraph(r.getString("colonia")));
+                colonia.setColspan(2);
+                table.addCell(colonia);
+                
+                table.addCell("Calle y numero:");
+                PdfPCell calleYnum = new PdfPCell(new Paragraph(r.getString("calleYnumero")));
+                calleYnum.setColspan(2);
+                table.addCell(calleYnum);
+
+                table.addCell("Telefono:");
+                PdfPCell tel = new PdfPCell(new Paragraph(r.getString("tel")));
+                tel.setColspan(2);
+                table.addCell(tel);
+
+                table.addCell(vacio);
+                
+                table.addCell("Servicios:"+r.getString("CantidadServicio"));
+                table.addCell("Costo servicio:80");
+                table.addCell("Costo total:"+r.getString("costo"));
+                
+                table.addCell(vacio);
+                
+                table.addCell("Recibe:\n\n\n");
+                PdfPCell fecha = new PdfPCell(new Paragraph("\nFecha servicio:  "+r.getString("fechaRequerida")+"\n\n"));
+                fecha.setColspan(2);
+                table.addCell(fecha);
+
+            }
+            document.add(table);
+            document.close();
+        }catch(SQLException ex){
+            Logger.getLogger(adminSolicitudes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+      
+    } catch (DocumentException de) {
+      System.err.println(de.getMessage());
+    } catch (IOException ioe) {
+      System.err.println(ioe.getMessage());
+    }
+    JOptionPane.showMessageDialog(null, "Pdf creado exitosamente"); 
+
+    }//GEN-LAST:event_ImprimirActionPerformed
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Imprimir;
     private javax.swing.JButton jActualiza;
     private javax.swing.JButton jEliminar;
     private javax.swing.JButton jSalir;

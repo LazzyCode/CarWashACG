@@ -7,7 +7,7 @@
 	//Proceso de conexión con la base de datos
 	include "conexion.php";
 
-	conectar();
+	$conex=conectar();
 
 	//Inicio de variables de sesión
 	session_start();
@@ -40,6 +40,8 @@
 		$_SESSION['colonia']=$registro['colonia'];
 		$_SESSION['calleYnumero']=$registro['calleYnumero'];
 		$_SESSION['telefono']=$registro['tel'];
+
+		desconectar($conex);
 
 		header("Location: paginaUsuario.php");
 	}

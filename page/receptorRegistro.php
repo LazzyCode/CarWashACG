@@ -2,7 +2,7 @@
 
 	include "conexion.php";
 	
-	conectar();
+	$conex=conectar();
 	//Recibir datos
 	$user = $_POST['user'];
 	$pass = $_POST['pass'];
@@ -30,6 +30,6 @@
 
 	header("Location: esperaRegistro.php");  
 	
-	desconectar();
+	desconectar($conex);
 
 ?>

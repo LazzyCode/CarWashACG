@@ -73,15 +73,31 @@
 			</div>
 			<!-- Variable tipo -time -->
 			<div class="form-group ">
+				<p>Horario de 10:00 am a 8:00 pm</p>
+				<p>Hora de preferencia:
 				<input type="time" class="form-control" placeholder="Hora" id="hora" name="hora" value="12:00">
-				<i class="fa fa-clock-o"></i>
+				</p>
 			</div>
 
 			<!-- Fecha-->
 			<div class="form-group ">
+				<p>Abierto toda la semana</p>
+				<p>Dia de preferencia:
 				<input type="date" class="form-control" placeholder="Fecha" id="fecha" name="fecha">
+				</p>
 			</div>
 
+			<div class="form-group">
+				<p>Costo:80 por carro</p>
+				<select name="cantidad" class="form-control">
+				   <option value="0">--Cuantos?--</option> 
+				   <option value="1">1</option> 
+				   <option value="2">2</option>
+				   <option value="3">3</option> 
+				   <option value="4">4</option> 
+				   <option value="5">5</option> 
+				</select>
+			</div>
 			<div class="form-group log-status">
 				<input type="password" class="form-control" placeholder="Confirmar Contraseña" id="Passwod2" name="pass">
 				<i class="fa fa-lock"></i>
