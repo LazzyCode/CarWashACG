@@ -45,6 +45,7 @@ public class adminSolicitudes extends javax.swing.JFrame {
         this.con = new Conector();
         this.setLocationRelativeTo(null);
         tabla.getTableHeader().setReorderingAllowed(false) ;
+        this.setExtendedState(MAXIMIZED_BOTH);
         mostrarTabla();
     }
     public Image getIconImage(){
@@ -257,7 +258,7 @@ public class adminSolicitudes extends javax.swing.JFrame {
     private void jEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEliminarActionPerformed
         //Falta validar cuando no se selecciona nada
             int fila=tabla.getSelectedRow();
-            String numSol=tabla.getValueAt(fila, 5).toString();
+            String numSol=tabla.getValueAt(fila, 0).toString();
             int opcion=JOptionPane.showOptionDialog(
                                      null,
                                     "Que desea hacer con este solicitud?", 
@@ -268,7 +269,7 @@ public class adminSolicitudes extends javax.swing.JFrame {
                                     new Object[] { "Completada", "Cancelada", "Nada"},
                                     "Administrador de empleados");
 
-            if(opcion==0 && opcion==1){
+            if(opcion==0 || opcion==1){
                 if(opcion==0){
                     opcion=JOptionPane.showOptionDialog(null, 
                         "Seguro que desea realiazar esta operacion?", 
@@ -383,7 +384,8 @@ public class adminSolicitudes extends javax.swing.JFrame {
     }//GEN-LAST:event_ImprimirActionPerformed
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
-        // TODO add your handling code here:
+        nuevaSolicitud NS = new nuevaSolicitud();
+        NS.setVisible(true);
     }//GEN-LAST:event_AgregarActionPerformed
 
     private void imprimirListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirListaActionPerformed

@@ -37,6 +37,7 @@ public class adminTrabajadores extends javax.swing.JFrame {
         tabla.getTableHeader().setReorderingAllowed(false) ;
         this.puesto=puesto;
         this.numeroEmpleado=nE;
+        this.setExtendedState(MAXIMIZED_BOTH);
         mostrarTabla();
     }
     public Image getIconImage(){
