@@ -111,12 +111,15 @@ public class adminSolicitudes extends javax.swing.JFrame {
         tabla = new javax.swing.JTable();
         jEliminar = new javax.swing.JButton();
         Imprimir = new javax.swing.JButton();
+        imprimirLista = new javax.swing.JButton();
+        Agregar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de administración de solicitudes de clientes.");
         setIconImage(getIconImage());
         setPreferredSize(new java.awt.Dimension(750, 400));
 
+        jSalir.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jSalir.setText("Salir");
         jSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,7 +127,7 @@ public class adminSolicitudes extends javax.swing.JFrame {
             }
         });
 
-        jActualiza.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jActualiza.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jActualiza.setText("Actualizar");
         jActualiza.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,10 +180,27 @@ public class adminSolicitudes extends javax.swing.JFrame {
             }
         });
 
-        Imprimir.setText("Imprimir");
+        Imprimir.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        Imprimir.setText("Imprimir recibo");
         Imprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ImprimirActionPerformed(evt);
+            }
+        });
+
+        imprimirLista.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        imprimirLista.setText("Imprimir lista");
+        imprimirLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imprimirListaActionPerformed(evt);
+            }
+        });
+
+        Agregar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        Agregar.setText("Agregar solicitud");
+        Agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarActionPerformed(evt);
             }
         });
 
@@ -188,29 +208,39 @@ public class adminSolicitudes extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addGap(25, 25, 25)
                 .addComponent(jActualiza)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(92, 92, 92)
+                .addComponent(Agregar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Imprimir)
-                .addGap(18, 18, 18)
-                .addComponent(jEliminar)
-                .addGap(168, 168, 168)
-                .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 737, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(imprimirLista)
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
-                .addGap(17, 17, 17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jActualiza)
-                    .addComponent(jEliminar)
-                    .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Imprimir))
-                .addGap(30, 30, 30))
+                    .addComponent(Agregar)
+                    .addComponent(jEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Imprimir)
+                    .addComponent(imprimirLista))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jSalir)
+                    .addComponent(jActualiza))
+                .addContainerGap())
         );
 
         pack();
@@ -351,10 +381,88 @@ public class adminSolicitudes extends javax.swing.JFrame {
     JOptionPane.showMessageDialog(null, "Pdf creado exitosamente"); 
 
     }//GEN-LAST:event_ImprimirActionPerformed
+
+    private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AgregarActionPerformed
+
+    private void imprimirListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirListaActionPerformed
+        Document document = new Document();
+    try {
+       String titulo="ListaSolicitudes.pdf";
+      PdfWriter.getInstance(document, new FileOutputStream(titulo));
+      document.open();
+      String sql = "SELECT * FROM solicitudes WHERE OrdenStatus='Espera'";
+      PdfPTable table = new PdfPTable(4);  
+      
+       pdf.addImagen(document);
+       table.addCell(" ");        
+       PdfPCell celdaTitulo = new PdfPCell(new Paragraph(titulo));
+       celdaTitulo.setColspan(2);
+       table.addCell(celdaTitulo);
+       table.addCell(" ");
+       PdfPCell vacio = new PdfPCell(new Paragraph(" "));
+       vacio.setColspan(4);
+        try{
+            Conector.sentencia=Conector.con.createStatement();
+            ResultSet r=Conector.sentencia.executeQuery(sql);
+            while(r.next()){
+                table.addCell(vacio);
+           
+                PdfPCell solicitud = new PdfPCell(new Paragraph("Id solicitud: "+r.getString("numeroSolicitud")));
+                table.addCell(solicitud);
+                PdfPCell idUser = new PdfPCell(new Paragraph("Id usuario: "+r.getString("idUsuario")));
+                table.addCell(idUser);
+                PdfPCell name = new PdfPCell(new Paragraph("Nombre: "+r.getString("nombre")+r.getString("apellido")));
+                name.setColspan(2);
+                table.addCell(name);
+                
+                
+                PdfPCell colonia = new PdfPCell(new Paragraph("Colonia: "+r.getString("colonia")));
+                colonia.setColspan(2);
+                table.addCell(colonia);
+                PdfPCell celdaNombre = new PdfPCell(new Paragraph("Calle y numero: "+r.getString("calleYnumero")));
+                celdaNombre.setColspan(2);
+                table.addCell(celdaNombre);
+                
+                PdfPCell tel = new PdfPCell(new Paragraph("Telefono: "+r.getString("tel")));
+                tel.setColspan(2);
+                table.addCell(tel);               
+                PdfPCell cant = new PdfPCell(new Paragraph("Cantidad servicio: "+r.getString("cantidadServicio")));
+                table.addCell(cant);
+                PdfPCell costo = new PdfPCell(new Paragraph("Costo: "+r.getString("costo")));
+                table.addCell(costo);
+                
+                PdfPCell fReque = new PdfPCell(new Paragraph("Fecha requerida: "+r.getString("fechaRequerida")));
+                fReque.setColspan(2);
+                table.addCell(fReque);
+                table.addCell("Orden status:  ");
+                PdfPCell status = new PdfPCell(new Paragraph(r.getString("ordenStatus")));
+                table.addCell(status);
+               
+                               
+            }
+            document.add(table);
+            document.close();
+        }catch(SQLException ex){
+            Logger.getLogger(adminSolicitudes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+      
+    } catch (DocumentException de) {
+      System.err.println(de.getMessage());
+    } catch (IOException ioe) {
+      System.err.println(ioe.getMessage());
+    }
+    JOptionPane.showMessageDialog(null, "Pdf creado exitosamente"); 
+
+    }//GEN-LAST:event_imprimirListaActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Agregar;
     private javax.swing.JButton Imprimir;
+    private javax.swing.JButton imprimirLista;
     private javax.swing.JButton jActualiza;
     private javax.swing.JButton jEliminar;
     private javax.swing.JButton jSalir;
