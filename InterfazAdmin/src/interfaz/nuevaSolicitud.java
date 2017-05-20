@@ -64,6 +64,7 @@ public class nuevaSolicitud extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
 
         setTitle("Cración de solicitud");
+        setIconImage(getIconImage());
         setMaximumSize(new java.awt.Dimension(326, 400));
         setMinimumSize(new java.awt.Dimension(326, 400));
         setResizable(false);

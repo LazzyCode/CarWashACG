@@ -118,7 +118,9 @@ public class adminSolicitudes extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de administración de solicitudes de clientes.");
         setIconImage(getIconImage());
-        setPreferredSize(new java.awt.Dimension(750, 400));
+        setLocationByPlatform(true);
+        setMinimumSize(new java.awt.Dimension(750, 350));
+        setPreferredSize(new java.awt.Dimension(750, 350));
 
         jSalir.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jSalir.setText("Salir");
@@ -138,30 +140,20 @@ public class adminSolicitudes extends javax.swing.JFrame {
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null,  new Integer(4325), null, null, null, null},
-                {null, null, "456", null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, "456", "65", null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Id", "NumPedido", "Nombre", "Apellido", "Costo", "Fecha"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
+        tabla.setAutoscrolls(false);
+        tabla.setCellSelectionEnabled(true);
+        tabla.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tabla.setMaximumSize(new java.awt.Dimension(750, 350));
+        tabla.setMinimumSize(new java.awt.Dimension(750, 350));
         jScrollPane1.setViewportView(tabla);
         if (tabla.getColumnModel().getColumnCount() > 0) {
             tabla.getColumnModel().getColumn(0).setResizable(false);
@@ -209,7 +201,6 @@ public class adminSolicitudes extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jActualiza)
@@ -226,11 +217,12 @@ public class adminSolicitudes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(imprimirLista)
                 .addContainerGap(125, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Agregar)
@@ -386,6 +378,7 @@ public class adminSolicitudes extends javax.swing.JFrame {
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
         nuevaSolicitud NS = new nuevaSolicitud();
         NS.setVisible(true);
+        mostrarTabla();
     }//GEN-LAST:event_AgregarActionPerformed
 
     private void imprimirListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirListaActionPerformed

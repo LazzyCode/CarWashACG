@@ -6,6 +6,7 @@
 package interfaz;
 
 import interfazadmin.Conector;
+import static interfazadmin.Conector.con;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.Connection;
@@ -91,11 +92,16 @@ public class adminTrabajadores extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         jEliminar = new javax.swing.JButton();
+        jAgregar = new javax.swing.JButton();
+        jcambiarPass = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de administración de solicitudes de clientes.");
         setIconImage(getIconImage());
+        setMinimumSize(new java.awt.Dimension(750, 350));
+        setPreferredSize(new java.awt.Dimension(750, 350));
 
+        jSalir.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jSalir.setText("Salir");
         jSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,30 +135,53 @@ public class adminTrabajadores extends javax.swing.JFrame {
             }
         });
 
+        jAgregar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jAgregar.setText("Añadir");
+        jAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAgregarActionPerformed(evt);
+            }
+        });
+
+        jcambiarPass.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jcambiarPass.setText("Cambiar contraseña");
+        jcambiarPass.setPreferredSize(new java.awt.Dimension(129, 25));
+        jcambiarPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcambiarPassActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addGap(36, 36, 36)
                 .addComponent(jActualiza)
-                .addGap(180, 180, 180)
+                .addGap(30, 30, 30)
+                .addComponent(jAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addComponent(jEliminar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
+                .addComponent(jcambiarPass, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(43, 43, 43))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
-                .addGap(17, 17, 17)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jActualiza)
-                    .addComponent(jEliminar)
+                    .addComponent(jEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcambiarPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -170,17 +199,18 @@ public class adminTrabajadores extends javax.swing.JFrame {
 //Falta validar cuando no se selecciona nada
             int fila=tabla.getSelectedRow();
             String valor=tabla.getValueAt(fila, 1).toString();
+            String id=tabla.getValueAt(fila, 0).toString();
             int puesto=Integer.parseInt(valor);
                 if(this.puesto>puesto){
                     int opcion=JOptionPane.showOptionDialog(null, 
-                                "Desea borrar al empleado numero"+valor+" ?", 
+                                "Desea borrar al empleado numero "+id+" ?", 
                                 "Borrar?", 
                                 JOptionPane.YES_NO_OPTION, 
                                 JOptionPane.QUESTION_MESSAGE, 
                                 null, null, null);
                     if(opcion==0){
                         try {
-                            PreparedStatement pps=Conector.con.prepareStatement("DELETE FROM persons WHERE Id='"+valor+"'");
+                            PreparedStatement pps=Conector.con.prepareStatement("DELETE FROM trabajadores WHERE numeroEmpleado='"+id+"'");
                             pps.executeUpdate();
                             JOptionPane.showMessageDialog(null, "Dato eliminado.");
                             mostrarTabla();
@@ -197,12 +227,50 @@ public class adminTrabajadores extends javax.swing.JFrame {
                 }
     }//GEN-LAST:event_jEliminarActionPerformed
 
+    private void jcambiarPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcambiarPassActionPerformed
+        try {
+            Conector.sentencia=Conector.con.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(adminTrabajadores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ResultSet r;
+            String pass = JOptionPane.showInputDialog("Confirmar contraseña actual:");
+            String sql = "SELECT user, pass FROM trabajadores WHERE pass='"+pass+"' AND numeroEmpleado='"+this.numeroEmpleado+"'";
+            
+            try{
+                r=Conector.sentencia.executeQuery(sql);
+                while(r.next()){
+                    String newpass = JOptionPane.showInputDialog("Ingresar nueva contraseña:");
+
+                    sql="Update trabajadores SET pass='"+newpass+"' WHERE numeroEmpleado='"+this.numeroEmpleado+"'";
+                    System.out.println(sql);
+                    PreparedStatement pps=con.prepareStatement(sql);
+                    pps.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Contraseña cambiada con exito"); 
+                    return;
+                }  
+                if(pass.isEmpty()==false){
+                    JOptionPane.showMessageDialog(null, "Contraseña incorrecta"); 
+                }
+            }catch(SQLException ex){
+                Logger.getLogger(adminTrabajadores.class.getName()).log(Level.SEVERE, null, ex);
+            }   
+    }//GEN-LAST:event_jcambiarPassActionPerformed
+
+    private void jAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAgregarActionPerformed
+        nuevoTrabajador NT = new nuevoTrabajador();
+        NT.setVisible(true);
+        mostrarTabla();
+    }//GEN-LAST:event_jAgregarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jActualiza;
+    private javax.swing.JButton jAgregar;
     private javax.swing.JButton jEliminar;
     private javax.swing.JButton jSalir;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jcambiarPass;
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }
