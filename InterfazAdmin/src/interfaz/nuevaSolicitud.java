@@ -316,7 +316,7 @@ public class nuevaSolicitud extends javax.swing.JFrame {
         String sql = "INSERT INTO solicitudes (idUsuario, nombre, apellido, colonia, calleYnumero, tel, cantidadServicio, costo, fechaRequerida, ordenStatus) VALUES (1, '"
                      +this.jTextNombre.getText()+"', '"+this.jTextApellido.getText()+"', '"+this.jTextColonia.getText()+"', '"+this.jTextcYn.getText()+"', '"
                      +this.jTextTelef.getText()+"', '"+this.jSpinnerServicios.getValue().toString()+"', '"+cos+"', '"+total+"', 'Espera')";
-        
+        System.out.println(sql);
         try {
             Conector.sentencia=Conector.con.createStatement();
             Conector.sentencia.executeUpdate(sql);

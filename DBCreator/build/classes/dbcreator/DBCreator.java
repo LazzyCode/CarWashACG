@@ -35,7 +35,6 @@ public class DBCreator {
                     con=DriverManager.getConnection(cadenaConeccion, usuario, contraseña);
                     sentencia = con.createStatement();
                     sentencia.executeUpdate("CREATE DATABASE cwm"); 
-                    System.out.println("ad");
                     cadenaConeccion="jdbc:mysql://127.0.0.1/cwm";
                     con2=DriverManager.getConnection(cadenaConeccion, usuario, contraseña);
                     sentencia = con2.createStatement();
@@ -43,7 +42,7 @@ public class DBCreator {
                                 "	id int NOT NULL AUTO_INCREMENT," +
                                 "  	user varchar(50) NOT NULL," +
                                 "  	pass varchar(50) NOT NULL," +
-                                "  	fecha TIMESTAMP," +
+                                "  	fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
                                 "  	PRIMARY KEY (id)" +
                                 ")";
                     sentencia.executeUpdate(sql);
@@ -69,7 +68,7 @@ public class DBCreator {
                                 "    costo int NOT NULL," +
                                 "    fechaRequerida TIMESTAMP," +
                                 "    ordenStatus varchar(20)," +
-                                "    fechaOrden TIMESTAMP," +
+                                "    fechaOrden TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
                                 "    PRIMARY KEY (numeroSolicitud)," +
                                 "    FOREIGN KEY (idUsuario) REFERENCES infousuarios(id)" +
                                 ")";
@@ -82,13 +81,17 @@ public class DBCreator {
                         "    nombre varchar(20)," +
                         "    apellido varchar(20)," +
                         "    telefono bigint(20)," +
-                        "    fecha TIMESTAMP," +
+                        "    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP ," +
                         "    PRIMARY KEY (numeroEmpleado)" +
                         " )";
                     sentencia.executeUpdate(sql);
                     sql="INSERT INTO trabajadores (user, pass, puesto, nombre, apellido, telefono) VALUES ('admin','admin123', '2', 'My', 'Pc', '127001')";
                     sentencia.executeUpdate(sql);
                     JOptionPane.showMessageDialog(null, "Base de datos creada con exito.");
+                    sql="INSERT INTO usuarios (user, pass) VALUES ('user', '12345')";
+                    sentencia.executeUpdate(sql);
+                    sql="INSERT INTO infousuarios (nombre, apellido, colonia, calleYnumero, tel) VALUES ('user', 'master', 'NaN', 'NaN', '0')";
+                    sentencia.executeUpdate(sql);
                 
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, "No se ha podido establecer una coneccion con la BD"+e.getMessage());
